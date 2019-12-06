@@ -131,6 +131,11 @@ bool play(Player p, Boss b) {
     size_t num_active_spells = 0;
     int mana_used = 0;
     while (true) {
+        p.hp--;
+        if (p.hp <= 0) {
+            free(active_spells);
+            return false;
+        }
         useEffect(active_spells, num_active_spells, &p, &b);
         Spell *spell = getSpell(active_spells, &num_active_spells, &p);
         p.mp -= spell->cost;
